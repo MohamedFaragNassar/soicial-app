@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+
+button,
+a,
+li {
+  outline: none;
+}
+
+.main {
+  width: 40%;
+  right: 34.5%;
+  padding-top: 64px;
+}
+
+.left-side {
+  width: 18%;
+  left: 7.5%;
+}
+
+#edit-profile,
+#addReply {
+  left: 33.3333333%;
+}
+
+#interActions {
+  left: 25%;
+}
+
+@media (max-width: 768px) {
+  .main {
+    width: 95%;
+    right: 2.5%;
+  }
+  #edit-profile,
+  #addReply,
+  #interActions {
+    left: 2%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .left-side {
+    width: 10%;
+  }
+  .main {
+    width: 75%;
+    right: 7.5%;
+  }
+  #edit-profile,
+  #addReply,
+  #interActions {
+    left: 8%;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
