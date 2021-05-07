@@ -13,7 +13,7 @@ const addPost = (post)=>async(dispatch,getState) =>{
     dispatch({type:ADD_POST_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.post("/post",post,{
+        const {data} = await Axios.post("/api/post",post,{
             headers:{
                 "Authorization":`Token ${userData.token}`,
                 'Content-Type': 'application/json'
@@ -32,7 +32,7 @@ const deletePost = (id)=>async(dispatch,getState) =>{
     dispatch({type:DELETE_POST_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.post("/deletepost",{id},{
+        const {data} = await Axios.post("/api/deletepost",{id},{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -48,7 +48,7 @@ const getPosts = (type,page)=>async(dispatch,getState) =>{
     dispatch({type:GET_POSTS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.get(`/posts/${type}/?page=${page}`,{
+        const {data} = await Axios.get(`/api/posts/${type}/?page=${page}`,{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -64,7 +64,7 @@ const getTagPosts = (tag)=>async(dispatch,getState) =>{
     dispatch({type:GET_TAG_POSTS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.get(`/tag/${tag}`,{
+        const {data} = await Axios.get(`/api/tag/${tag}`,{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -80,7 +80,7 @@ const getPostDetails = (id) => async (dispatch,getState) => {
     console.log(id)
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.get(`/post/${id}`,{
+        const {data} = await Axios.get(`/api/post/${id}`,{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -95,7 +95,7 @@ const postAction = (action,id) => async(dispatch,getState) => {
     dispatch({type:POST_ACTION_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.post("/action",{action,id},{
+        const {data} = await Axios.post("/api/action",{action,id},{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -110,7 +110,7 @@ const getTags = () => async(dispatch,getState) => {
     dispatch({type:GET_TAGS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.get("/tags",{
+        const {data} = await Axios.get("/api/tags",{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -126,7 +126,7 @@ const clearBookmarks = () => async(dispatch,getState) => {
     dispatch({type:DELETE_BOOKMARKS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.delete("/bookmarks",{
+        const {data} = await Axios.delete("/api/bookmarks",{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }
@@ -142,7 +142,7 @@ const getBookmarks = () => async(dispatch,getState) => {
     dispatch({type:GET_BOOKMARKS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState()
-        const {data} = await Axios.get("/allbookmarks",{
+        const {data} = await Axios.get("/api/allbookmarks",{
             headers:{
                 "Authorization":`Token ${userData.token}`
             }

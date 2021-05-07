@@ -36,9 +36,11 @@ const Profile = (props) => {
         {loading ? <div>loading</div> :error?<ErrorMessage message={error} /> : profile?
         <div className="w-full h-auto flex flex-col item-center justify-between bg-white" >
             <div className="relative" >
-                <img className="w-full h-60 rounded-sm " src={`/media/${profile.cover_image}`} />
+                <img className="w-full h-60 rounded-sm "
+                 src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328825/${profile.cover_image}`} />
                 <div className="w-80 flex flex-col item-center justify-between  absolute top-40 left-1" >
-                    <img src={`/media/${profile.personal_image}`} className="w-32 h-32 rounded-full border-4 border-white ml-10 " />
+                    <img src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${profile.personal_image}`}
+                    className="w-32 h-32 rounded-full border-4 border-white ml-10 " />
                     <h2 className=" text-xl font-semibold ml-4 md:text-2xl md:font-bold md:ml-10" >
                         {`${profile.first_name} ${profile.last_name}`} 
                         {profile.is_private?<i className="fas fa-lock ml-2"></i>:null}
@@ -46,7 +48,7 @@ const Profile = (props) => {
                     <span className="mt-1.5 text-sm text-gray-600 ml-10" >{`@${profile.username}`}</span>
                 </div>
                 <button className="absolute top-64 right-1 px-3 py-1  md:top-64 md:right-8 md:px-6 md:py-3 font-semibold text-lg border-2
-                    rounded-full border-blue-600 hover:bg-blue-400 hover:text-white" onClick={()=>setIsOpen(true)}  >
+                    rounded-full border-blue-400 hover:bg-blue-400 hover:text-white" onClick={()=>setIsOpen(true)}  >
                        Edit Profile
                 </button>
                 <div className="mt-40 flex items-center justify-between w-10/12 md:w-7/12 mx-auto flex-wrap">
@@ -91,9 +93,9 @@ const Profile = (props) => {
                     </button>
                 </div>
             </div>
-            <div className="h-auto  bg-gray-200" >
+            <div className="h-auto  bg-gray-200 pt-2" >
                 {posts&&posts.results.map(post => 
-                    <Post post={post} type="post" />    
+                    <Post key={post.id} post={post} type="post" />    
                 )}
                 {posts?.next&&<button onClick={()=>setPage(page+1)} className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2">
                Load More

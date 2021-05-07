@@ -35,7 +35,7 @@ function App() {
             <RightSide/>
             <LeftSide/>
         </>:null}
-        <div className=" main min-h-screen  bg-gray-200 absolute">
+        <div className=" main min-h-screen  bg-gray-200 absolute border-r">
             <ProtectedRoute path="/" exact={true} component={Main} />
             <ProtectedRoute path="/profile" exact={true}  component={Profile} />
             <ProtectedRoute path="/profile/:username" component={VisitProfile} />

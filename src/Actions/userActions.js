@@ -11,8 +11,8 @@ import {USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGOUT
     GET_BLOCKS_FAIL,GET_BLOCKS_REQUEST,GET_BLOCKS_SUCCESS,
     SEARCH_USERS_FAIL,SEARCH_USERS_REQUEST,SEARCH_USERS_SUCCESS,
     GET_SUGGETIONS_FAIL,GET_SUGGETIONS_REQUEST,GET_SUGGETIONS_SUCCESS,
-    GET_ROOMS_FAIL,GET_ROOMS_REQUEST,GET_ROOMS_SUCCESS,
-    ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,
+    GET_ROOMS_FAIL,GET_ROOMS_REQUEST,GET_ROOMS_SUCCESS,READ,
+    ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,READ_FOLLOW,
     GET_FOLLOW_NOTIFICATIONS_FAIL,GET_FOLLOW_NOTIFICATIONS_REQUEST,GET_FOLLOW_NOTIFICATIONS_SUCCESS,
     MAKE_RELATION,REMOVE_BLOCK,UPDATE_PROFILE,CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY,
     ADD_RELATION_FAIL,ADD_RELATION_REQUEST,ADD_RELATION_SUCCESS} from '../Constants/userConstants'
@@ -139,7 +139,7 @@ const getUserProfile = (username) =>  async (dispatch,getState) => {
     dispatch({type:VISIT_PROFILE_REQUEST})
     try{
         const {userSignIn:{userData}} = getState() 
-        const {data} = await Axios.get(`/profile/${username}`,{
+        const {data} = await Axios.get(`/api/profile/${username}`,{
             headers:{
                 "Authorization":`Token ${userData.token}`,
             }
@@ -172,7 +172,7 @@ const getNotifications = () => async(dispatch,getState) =>{
     dispatch({type:GET_NOTIFICATIONS_REQUEST})
     try{
         const {userSignIn:{userData}} = getState() 
-        const {data} = await Axios.get("/notifications",{
+        const {data} = await Axios.get("/api/notifications",{
             headers:{
                 "Authorization":`Token ${userData.token}`,
             }
@@ -218,12 +218,12 @@ const updateInfo = (info) => async(dispatch,getState) =>{
 const readNotification = (id,action) => async(dispatch,getState) =>{
     try{
         const {userSignIn:{userData}} = getState() 
-        const {data} = await Axios.patch("/notifications/read",{id,action},{
+        const {data} = await Axios.patch("/api/notifications/read",{id,action},{
             headers:{
                 "Authorization":`Token ${userData.token}`,
             }
         })
-        
+        dispatch({type:READ,payload:id})
     }catch(err){
         console.log(err)
     }
@@ -237,7 +237,7 @@ const readFollowNotification = (id,action) => async(dispatch,getState) =>{
                 "Authorization":`Token ${userData.token}`,
             }
         })
-        
+        dispatch({type:READ_FOLLOW,payload:id})
     }catch(err){
         console.log(err)
     }
@@ -269,7 +269,7 @@ const searchUsers = (keyword)=>async(dispatch,getState)=>{
         })
         dispatch({type:SEARCH_USERS_SUCCESS,payload:data})
     }catch(err){
-        dispatch({type:SEARCH_USERS_FAIL,payload:err.response.data[Object.keys(err.response.data)[0]]})
+        dispatch({type:SEARCH_USERS_FAIL,payload:err})
     }
 }
 

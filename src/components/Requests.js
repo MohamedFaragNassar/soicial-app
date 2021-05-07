@@ -1,31 +1,42 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import GoBack from './GoBack'
-import {relation} from '../Actions/userActions'
+import { Link, useHistory } from 'react-router-dom'
+import {REQUEST_RESPONSE} from '../Constants/userConstants'
+import {getFollowNotifications, relation,readFollowNotification} from '../Actions/userActions'
 
 const Requests = () => {
     const {followNotifications} = useSelector(state => state.followNotifications)
     const dispatch = useDispatch()
-
+    const history = useHistory()
     const handleResponse = (username,action)=>{
         dispatch(relation(username,action))
+        if(action == "accept" || action=="reject"){
+            dispatch({type:REQUEST_RESPONSE,payload:username})
+        }
     }
+    const hanndleClickNotification = (id,action,username)=>{
+        dispatch(readFollowNotification(id,action))
+        if(action == "single"){
+           history.push(`/profile/${username}`)
+        }
+    }
+    useEffect(() => {
+        dispatch(getFollowNotifications())
+    }, [])
     return <>
-        <GoBack title="Requests"/>
         <div  id="friends" className="flex flex-col items-center w-full  bg-white">
         {followNotifications&& followNotifications.length > 0 ?followNotifications.map(n => 
-                <div className="flex items-start justify-start w-full p-4 border hover:bg-gray-50" >
+                <div className={`flex items-start justify-start cursor-pointer w-full p-4 border ${n.is_read?"bg-white":"bg-gray-100"}`} >
                     <img className="w-10 h-10 rounded-full mr-4" src={`/media/${n.user.personal_image}`} />
                     <div className="w-4/5 text-sm" >
                         {
-                            n.action == "follow" ? <Link to={`/profile/${n.user.username}`}>
+                            n.action=="follow" ? <div onClick={() => hanndleClickNotification(n.id,"single",n.user.username)}>
                                                         {`${n.user.first_name} ${n.user.last_name} started following you`}
-                                                    </Link>:
-                            n.action == "accept" ? <Link to={`/profile/${n.user.username}`}>
+                                                    </div>:
+                            n.action=="accept" ? <div onClick={() => hanndleClickNotification(n.id,"single",n.user.username)}>
                                                         {`${n.user.first_name} ${n.user.last_name} accepted your follow request`}
-                                                    </Link>:
-                            n.action == "request" ? 
+                                                    </div>:
+                            n.action=="request" ? 
                                 <div>
                                     <Link to={`/profile/${n.user.username}`}>
                                         {`${n.user.first_name} ${n.user.last_name} send you follow request`}

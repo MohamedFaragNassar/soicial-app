@@ -58,10 +58,10 @@ const getPostsReducer = (state={},action)=>{
             if(action.payload.parent){
                 return state
             }else{
-                return {posts:[action.payload,...state.posts]} 
+                return {posts:{results:[action.payload,...state.posts.results],next:state.posts.next}} 
             }
         case DELETE_POST:
-            return {posts:state.posts.filter(e => e.id != action.payload)} 
+            return {posts:{results:state.posts.results.filter(e => e.id != action.payload),next:state.posts.next}} 
         case GET_POSTS_FAIL:
             return {loading:false,error:action.payload} 
         default:

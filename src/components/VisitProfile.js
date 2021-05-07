@@ -48,9 +48,11 @@ const VisitProfile = (props) => {
         {loading ? <div>loading</div> :error?<ErrorMessage message={error} /> : profile&&visitedProfile?
         <div className="w-full h-auto flex flex-col item-center justify-between bg-white" >
             <div className="relative" >
-                <img className="w-full h-60 rounded-sm " src="img1.jpg" />
+                <img className="w-full h-60 rounded-sm " 
+                src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328825/${visitedProfile.userProfile.cover_image}`} />
                 <div className="w-80 flex flex-col item-center justify-between  absolute top-40 left-1" >
-                    <img src="profile.jpg" className="w-32 h-32 rounded-full border-4 border-white ml-10 " />
+                    <img src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${visitedProfile.userProfile.personal_image}`}
+                     className="w-32 h-32 rounded-full border-4 border-white ml-10 " />
                     <h2 className="text-2xl font-bold ml-10" >
                         {`${visitedProfile.userProfile.first_name} ${visitedProfile.userProfile.last_name}`}
                         {visitedProfile.userProfile.is_private?<i className="fas fa-lock ml-2"></i>:null}

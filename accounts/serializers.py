@@ -39,6 +39,46 @@ class LoginSerializer(serializers.Serializer):
         raise serializers.ValidationError("Incorrect Credentials")
 
 
+class ProfileDataSerializer(serializers.ModelSerializer):
+    first_name = serializers.SerializerMethodField(read_only=True)
+    last_name = serializers.SerializerMethodField(read_only=True)
+    username = serializers.SerializerMethodField(read_only=True)
+    email = serializers.SerializerMethodField(read_only=True)
+    id = serializers.SerializerMethodField(read_only=True)
+    personal_image = serializers.CharField(max_length=250)
+    cover_image = serializers.CharField(max_length=250)
+    class Meta:
+        model = Profile
+        fields = [
+            "first_name",
+            "last_name",
+            "id",
+            "bio",
+            "location",
+            "website",
+            "username",
+            "email",
+            "personal_image",
+            "cover_image",
+        ]
+        
+    def get_first_name(self, profile):
+        return profile.user.first_name
+
+    def get_last_name(self, profile):
+        return profile.user.last_name
+
+    def get_username(self, profile):
+        return profile.user.username
+
+    def get_email(self, profile):
+        return profile.user.email
+
+    def get_id(self, profile):
+        return profile.user.id
+
+
+
 class ProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.SerializerMethodField(read_only=True)
     last_name = serializers.SerializerMethodField(read_only=True)
@@ -94,7 +134,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         return profile.user.date_joined
 
     def get_following(self, profile):
-        following = profile.following.values()
+        following = profile.following.all()
         serializer = UserSerializer(following, many=True)
         return serializer.data
 

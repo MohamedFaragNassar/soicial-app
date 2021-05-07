@@ -1,45 +1,32 @@
-import React, { useEffect } from 'react'
-import {useDispatch,useSelector} from 'react-redux'
-import {useHistory} from 'react-router-dom'
-import {getNotifications,readNotification} from '../Actions/userActions'
+import React, { useState } from 'react'
+
 import ErrorMessage from './ErrorMessage'
 import GoBack from './GoBack'
+import Requests from './Requests'
+import TweetNotf from './TweetNotf'
 
 const AllNotifications = () => {
-    const {loading,error,notifications} = useSelector(state => state.getNotifications)
+    const [type,setType] = useState("tweets")
 
-    const dispatch = useDispatch()
     
-    const history = useHistory()
-    useEffect(() => {
-        dispatch(getNotifications())
-    }, [])
-
-    const hanndleClickNotification = (id,action,parent)=>{
-        dispatch(readNotification(id,action))
-        if(action == "single"){
-           history.push(`/post/${parent}`)
-        }
-    }
 
     return <>
-    {loading?<div>loading</div> : error ? <ErrorMessage message={error.message} /> : notifications ?
         <div>
-            <GoBack title="Notifications" />  
-            <button className="w-full border p-2 hover:bg-gray-200 bg-white" onClick={()=>hanndleClickNotification("","all")} >Mark all as read</button>
-            <div>
-                {notifications.map(notification => 
-                    <div onClick={() => hanndleClickNotification(notification.id,"single",notification.parent) }
-                        className={`flex items-center justify-start ${notification.is_read?"bg-white":"bg-gray-200"} 
-                        w-full p-4 hover:bg-gray-400`} >
-                        <img className="w-10 h-10 rounded-full" src="profile.jpg" />
-                        <div className="w-4/5 text-sm ml-5 text-lg " >
-                           {`${notification.user.first_name} ${notification.user.last_name} ${notification.action} your post `}
-                        </div>
-                    </div>
-                ) }
-            </div>
-        </div> : <div>No Notifications yet</div>}
+            <GoBack title="Notifications" />
+            <div className="w-full" >
+                <div className="w-full h-16 border-b  bg-white ">
+                    <button onClick={()=>setType("tweets")}  className={`w-1/2 h-full text-md lg:text-lg font-bold\
+                     ${type==="mytweets"?"text-blue-600 border-b-2 border-blue-600":null} focus:outline-none  `}>
+                        Tweets Notifications
+                    </button>
+                    <button onClick={()=>setType("followers")} className={`w-1/2 h-full text-md lg:text-lg font-bold \
+                        ${type==="likes"?"text-blue-600 border-b-2 border-blue-600":null} focus:outline-none `} >
+                        Followers Notifications
+                    </button>
+                </div>
+            </div>  
+           {type=="tweets"?<TweetNotf/>:<Requests/>}
+        </div> 
     </>
 }
 

@@ -19,7 +19,7 @@ const AccountInformation = () => {
                         <span>UserName</span>
                         <span className="text-sm text-gray-400">{profile.username}</span>
                     </div>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i className="fas fa-chevron-right"></i>}
                 </Link>
                 <Link to="/settings/email" className="px-2 py-4 font-semibold text-lg border-b w-
                     full text-left flex justify-between items-center" >
@@ -27,7 +27,7 @@ const AccountInformation = () => {
                         <span>Email</span>
                         <span className="text-sm text-gray-400">{profile.email}</span>
                     </div>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i className="fas fa-chevron-right"></i>}
                 </Link>
                 <Link to="/settings/gender" className="px-2 py-4 font-semibold text-lg border-b w-full text-left 
                 flex justify-between items-center" >
@@ -35,7 +35,7 @@ const AccountInformation = () => {
                         <span>Gender</span>
                         <span className="text-sm text-gray-400">{profile.gender}</span>
                     </div>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i className="fas fa-chevron-right"></i>}
                 </Link>
             </div>
         </div> : null }

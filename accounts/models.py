@@ -31,8 +31,9 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     website = models.CharField(null=True, blank=True,max_length=220)
     location = models.CharField(null=True,blank=True, max_length=220)
-    personal_image = models.ImageField(upload_to = personal_image_name,default="account.png" ,null=True,blank=True)
-    cover_image = models.ImageField(upload_to = cover_image_name, null=True,blank=True,default="account.png")
+    personal_image = models.ImageField(upload_to = personal_image_name,
+    default="/media/personalImages/account_yvnwmh.png" ,null=True,blank=True)
+    cover_image = models.ImageField(upload_to = cover_image_name, null=True,blank=True,default="/media/coverImages/cover_yxdgi3.jpg")
     followers = models.ManyToManyField(
         User, related_name="followers", blank=True)
     following = models.ManyToManyField(

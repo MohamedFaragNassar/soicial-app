@@ -72,7 +72,8 @@ import Picker from 'emoji-picker-react'
             <div className="h-max min-h-40 mb-2 pl-2 flex items-center justify-start bg-white mx-auto
                 rounded-lg shadow-md p-2 mt-1" style={{width:98+"%"}}>
                 {profile&&<div className="h-full w-1/12 flex justify-center items-start mb-auto mt-2 ">
-                    <img className=" w-8 h-8 md:w-12 md:h-12 rounded-full" src={`/media/${profile.personal_image}`} />
+                    <img className=" w-8 h-8 md:w-12 md:h-12 rounded-full"
+                     src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${profile.personal_image}`} />
                 </div>}
                 <div className="w-11/12 flex flex-col justify-center items-start" >
                     <textarea id="contentArea" onChange={(e)=>setContent(e.target.value)} className="h-max w-11/12 border-b ml-2 " 
@@ -86,7 +87,7 @@ import Picker from 'emoji-picker-react'
                         <div className="ml-5 flex items-center justify-between ">
                             {/* <button className="mr-3 text-xl text-blue-400 " ><i class="fal fa-file-image"></button> */}
                             <div>
-                                <input type="file" id="image" className="hidden" onChange={(e)=>setImage(e.target.files)} />
+                                <input type="file" id="image" className="hidden" onChange={(e)=>setImage(e.target.files[0])} />
                                 <label className="mr-3 text-lg md:text-xl text-blue-400 cursor-pointer" for="image" ><i class="fal fa-file-image"></i></label>
                             </div>
                             <button  className="mr-3 text-lg md:text-xl text-blue-400 relative " onClick={()=>setIsOpen(true)} >

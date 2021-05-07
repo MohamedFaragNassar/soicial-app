@@ -16,7 +16,7 @@ const TagPage = (props) => {
     }, [tag])
     return <>
         { loading?<div>loading</div>:error?<ErrorMessage message={error.message} />: posts ?
-        <div>
+        <div className>
             <GoBack title={`#${tag}`} /> 
             {posts.map(post =>
                 <Post post={post} type="post" />     

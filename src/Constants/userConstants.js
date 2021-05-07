@@ -81,4 +81,7 @@ export const  ADD_RELATION_FAIL = "ADD_RELATION_FAIL"
 
 
 export const  FOLLOW_USER = "FOLLOW_USER"
+export const  REQUEST_RESPONSE = "REQUEST_RESPONSE"
+export const  READ = "READ"
+export const  READ_FOLLOW = "READ_FOLLOW"
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {updateProfile,updatePersonalImage,updateCoverImage} from '../Actions/userActions'
 
 const EditProfile = ({isOpen,close,domNode,user}) => {
@@ -11,7 +11,9 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
     const [website,setWebsite] = useState(null) 
     
     const dispatch = useDispatch()
-    
+
+   // const {image} = useSelector(state => state.personalImage)
+
     const handleUpdateProfile = () =>{
         dispatch(updateProfile({
             first_name,
@@ -38,6 +40,7 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
         dispatch(updateCoverImage(formData))
     }
 
+ 
     if(!isOpen){
         return null
     }
@@ -47,28 +50,30 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
           bg-white flex flex-col items-center justify-between py-2 z-20">
             <div className="w-full mx-auto flex  items-center justify-between   mb-2 " >
                 <div className="flex w-36 items-center justify-between ml-2">
-                    <button className="ml-2 text-lg" onClick={close}><i class="fal fa-times-circle"></i></button>
+                    <button className="ml-2 text-lg" onClick={close}><i className="fal fa-times-circle"></i></button>
                     <h1 className="font-bold text-xl">Edit Profile</h1>
                 </div>
                 <button  onClick={handleUpdateProfile}
-                    className="px-4 py-1 border border rounded-full mr-2 
+                    className="px-4 py-1 border rounded-full mr-2 
                     text-white bg-blue-400 text-lg font-semibold hover:bg-blue-500 ">
                          Save
                 </button>
             </div>
             <div className="relative w-full">
                 <div className="w-full relative" > 
-                    <img className="w-full h-48 "  src={`/media/${user.cover_image}`}/>
-                    <label for="cover_image" className="absolute text-xl cursor-pointer " style={{left:40+"%",top:40+"%"}} >
-                            <i class="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
+                    <img className="w-full h-48 " src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328825/${user.cover_image}`}/>
+                    <label for="cover_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100
+                     bg-white rounded-full" style={{left:45+"%",top:45+"%"}} >
+                            <i className="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
                     </label>
                     <input onChange={(e)=>handleUploadCoverImage(e)} id="cover_image" type="file" className="hidden" />
                 </div>
                 <div className="w-40 flex flex-col item-center justify-between  absolute top-28 " >
                     <div className="w-full h-full relative" >
-                        <img src={`/media/${user.personal_image}`} className="w-32 h-32 rounded-full border-4 border-white mx-auto" />
-                        <label for="personal_image" className="absolute text-xl cursor-pointer " style={{left:40+"%",top:40+"%"}} >
-                            <i class="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
+                        <img src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${user.personal_image}`} className="w-32 h-32 rounded-full border-4 border-white mx-auto" />
+                        <label for="personal_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100 
+                        bg-white rounded-full" style={{left:36+"%",top:35+"%"}} >
+                            <i className="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
                         </label>
                         <input onChange={(e)=>handleUploadPersonalImage(e)} id="personal_image" type="file" className="hidden" />
                     </div>

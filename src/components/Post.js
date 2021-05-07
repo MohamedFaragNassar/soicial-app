@@ -73,8 +73,10 @@ const Post = ({post,type}) => {
         {post&&<div  className={classes} style={type==="post"?{width:98+"%"}:{width:100+"%"}} >
             <div className=" w-full flex items-start justify-between">
                <div className=" flex items-start justify-center  " >
-                    <img className=" w-10 h-10 md:w-12 md:h-12 rounded-full" src={`/media/${post.user.personal_image}`} />
-                    <Link className=" ml-2 md:ml-3 text-lg md:text-xl mt-.5 font-medium md:font-semibold truncate" to={checkUser?"/profile":`/profile/${post.user.username}`} >
+                    <img className=" w-10 h-10 md:w-12 md:h-12 rounded-full" 
+                    src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${post.user.personal_image}`} />
+                    <Link className=" ml-2 md:ml-3 text-lg md:text-xl mt-.5 font-medium md:font-semibold truncate" 
+                    to={checkUser?"/profile":`/profile/${post.user.username}`} >
                         {`${post.user.first_name} ${post.user.last_name}`}
                     </Link>
                     <span className="ml-2 mt-1.5 text-sm text-gray-400" >{`@${post.user.username}`}</span>
@@ -89,11 +91,12 @@ const Post = ({post,type}) => {
                     <Link to={`/tag/${tag}`} className="ml-2 text-blue-800" >{`#${tag}`}</Link>    
                 )}
             </div>
-            {post.image.length >0 ? <img className="w-full mx-auto rounded-lg max-h-80" src={`/media/${post.image}`} /> :null}
+            {post.image.length >0 ? <img className="w-full mx-auto rounded-lg max-h-80" 
+            src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328410/${post.image}`} /> :null}
            { type!=="details"? <div className=" w-full flex items-center justify-evenly " >
-                <div className="flex items-center justify-center mt-2" >
+                <div className="flex items-center justify-center mt-2">
                     <button onClick={()=>setIsOpen(true)} className="mr-2 text-sm md:text-lg text-gray-600" >
-                        <i class="fal fa-comment"></i>
+                        <i className="fal fa-comment"></i>
                     </button>
                     <span className="text-sm" >{post.replies.length}</span>
                 </div>
@@ -104,16 +107,16 @@ const Post = ({post,type}) => {
                     <button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("unshare")} >
                         <i className="fas fa-share-alt-square text-green-500"></i>
                     </button>}
-                    <span className="text-sm" >{post.shares.length}</span>
+                    <span className="text-sm">{post.shares.length}</span>
                 </div>
                 <div className="flex items-center justify-center" >
                     {!checkLike?<button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("like")} >
-                        <i class="far fa-heart"></i>
+                        <i className="far fa-heart"></i>
                     </button>:
                     <button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("unlike")} >
                         <i className="fas fa-heart text-red-500"></i>
                     </button>}
-                    <span className="text-sm" >{post.likes.length}</span>
+                    <span className="text-sm">{post.likes.length}</span>
                 </div>
             </div> : 
             <div className="w-full" >
@@ -126,18 +129,35 @@ const Post = ({post,type}) => {
                         </button>:<span className="ml-5">0 Likes</span>}
                     </div>
                     <div className="w-full border-b  py-2 flex items-center justify-evenly " >
-                        <button onClick={()=>setIsOpen(true)}  className="mr-2 text-sm md:text-lg text-gray-600" >
-                            <i className="fal fa-comment"></i>
-                        </button>
-                        <button  className="mr-2 text-sm md:text-lg text-gray-600" ><i className="fal fa-share-alt-square"></i></button>
-                        <button  className="mr-2 text-sm md:text-lg text-gray-600" ><i className="far fa-heart"></i></button>
+                    <div className="flex items-center justify-center mt-2" >
+                    <button onClick={()=>setIsOpen(true)} className="mr-2 text-sm md:text-lg text-gray-600" >
+                        <i className="fal fa-comment"></i>
+                    </button>
+                    
+                </div>
+                <div className="flex items-center justify-center" >
+                        {!checkShare?<button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("share")} >
+                                <i className="fal fa-share-alt-square"></i>
+                            </button>:
+                            <button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("unshare")} >
+                                <i className="fas fa-share-alt-square text-green-500"></i>
+                            </button>}
+                         </div>
+                        <div className="flex items-center justify-center" >
+                            {!checkLike?<button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("like")} >
+                                <i className="far fa-heart"></i>
+                            </button>:
+                            <button  className="mr-2 text-sm md:text-lg text-gray-600" onClick={()=>handlePostAction("unlike")} >
+                                <i className="fas fa-heart text-red-500"></i>
+                            </button>}
+                        </div>
                     </div>
             </div>
             }
            {isMenuOpen&& <PostMenu post={post} node={node} close={()=>setIsMenuOpen(false)} />}
             <AddReply post={post} isOpen={isOpen} close={()=>setIsOpen(false)} node={addReplyNode} />
             <InterActions isOpen={isInterActionsOpen} close={()=>setIsInterActionsOpen(false)}
-             node={interActionsNode} users={interActingUsers} />
+             node={interActionsNode} users={interActingUsers}/>
         </div>}
     </>
 }

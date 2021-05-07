@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 #import django_heroku
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary_storage
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     "api.apps.ApiConfig",
     "accounts.apps.AccountsConfig",
-    
+    'cloudinary',
+    'cloudinary_storage',
     
 ]
 
@@ -75,6 +78,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
 
 )
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': "dt3fknrkp",
+    'API_KEY': "678345384481827",
+    'API_SECRET': "XAFHdzWuHvyt_fdWseKhSFGUDdY",
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ASGI_APPLICATION = "backend.asgi.application"
 

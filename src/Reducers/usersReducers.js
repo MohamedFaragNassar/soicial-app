@@ -6,15 +6,15 @@ import {USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS
     VISIT_PROFILE_SUCCESS,VISIT_PROFILE_REQUEST,VISIT_PROFILE_FAIL,
     GET_NOTIFICATIONS_FAIL,GET_NOTIFICATIONS_REQUEST,GET_NOTIFICATIONS_SUCCESS,
     CHANGE_PASSWORD_FAIL,CHANGE_PASSWORD_REQUEST,CHANGE_PASSWORD_SUCCESS,
-    UPDATE_INFO_FAIL,UPDATE_INFO_REQUEST,UPDATE_INFO_SUCCESS,
+    UPDATE_INFO_FAIL,UPDATE_INFO_REQUEST,UPDATE_INFO_SUCCESS,READ,
     GET_BLOCKS_FAIL,GET_BLOCKS_REQUEST,GET_BLOCKS_SUCCESS,FOLLOW_USER,
-    SEARCH_USERS_FAIL,SEARCH_USERS_REQUEST,SEARCH_USERS_SUCCESS,
+    SEARCH_USERS_FAIL,SEARCH_USERS_REQUEST,SEARCH_USERS_SUCCESS,REQUEST_RESPONSE,
     GET_SUGGETIONS_FAIL,GET_SUGGETIONS_REQUEST,GET_SUGGETIONS_SUCCESS,
     GET_ROOMS_FAIL,GET_ROOMS_REQUEST,GET_ROOMS_SUCCESS,REMOVE_BLOCK,
     ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,UPDATE_PROFILE,
     GET_FOLLOW_NOTIFICATIONS_FAIL,GET_FOLLOW_NOTIFICATIONS_REQUEST,GET_FOLLOW_NOTIFICATIONS_SUCCESS,
     ADD_RELATION_SUCCESS,ADD_RELATION_REQUEST,ADD_RELATION_FAIL,
-CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY} from '../Constants/userConstants'
+CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY, READ_FOLLOW} from '../Constants/userConstants'
 
 const loginReducer = (state={},action)=>{
     switch(action.type){
@@ -117,6 +117,13 @@ const getNotificationsReducer = (state={},action)=>{
             return {loading:false,notifications:action.payload}
         case GET_NOTIFICATIONS_FAIL:
             return {loading:false,error:action.payload} 
+        case READ:
+            const modified = state.notifications.forEach(e => {
+                if(e.id == action.payload){
+                    e.is_read = true
+                }
+            })
+            return{notifications:modified}
         default:
             return state 
     }
@@ -223,6 +230,15 @@ const  getFollowNotificationsReducer = (state={},action)=>{
             return {loading:true}
         case GET_FOLLOW_NOTIFICATIONS_SUCCESS:
             return {loading:false,followNotifications:action.payload}
+        case READ_FOLLOW:
+            const modified = state.followNotifications.forEach(e => {
+                if(e.id == action.payload){
+                    e.is_read = true
+                }
+            })
+            return{followNotifications:modified}
+        case REQUEST_RESPONSE:
+            return {followNotifications:[...state.followNotifications.filter(e => e.user.username != action.payload)]}
         case GET_FOLLOW_NOTIFICATIONS_FAIL:
             return {loading:false,error:action.payload} 
         default:

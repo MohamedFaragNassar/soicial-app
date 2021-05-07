@@ -11,23 +11,26 @@ import EditGender from './EditGender'
 
 const Setting = () => {
     return (
-        <div className="h-screen bg-white">
-            <div className="w-full bg-white text-left pl-4 font-bold text-xl border-b py-4 " >Settings</div>
-            <div className=" setting flex flex-col items-start bg-white " style={{width:68+"%"}}>
-                <Link to="/settings/account" className="px-2 py-4 font-medium text-sm md:font-semibold md:text-lg border-b w-full text-left flex justify-between items-start" >
+        <div className="h-screen bg-white flex flex-col border-l">
+            <div className="w-full bg-white text-left pl-4 font-bold text-xl border-b py-4  " >Settings</div>
+            <div className=" setting flex w-full  items-start justify-around bg-white border-b ">
+                <Link to="/settings/account" className="w-1/3 py-4 font-medium text-sm md:font-medium md:text-lg 
+                border-b text-center flex justify-center items-center" >
                    <span> Account Information</span>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i class="fas fa-chevron-right"></i>}
                 </Link>
-                <Link to="/settings/password" className="px-2 py-4 font-medium text-sm md:font-semibold md:text-lg border-b w-full text-left flex justify-between items-start" >
+                <Link to="/settings/password" className=" py-4 font-medium text-sm md:font-medium 
+                md:text-lg  w-1/4 text-center flex justify-center items-center" >
                     <span>Change Password</span>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i class="fas fa-chevron-right"></i>}
                 </Link>
-                <Link to="/settings/privacy" className="px-2 py-4 font-medium text-sm md:font-semibold md:text-lg border-b w-full text-left flex justify-between items-start" >
+                <Link to="/settings/privacy" className=" py-4 font-medium text-sm md:font-medium 
+                md:text-lg  w-1/4 text-center flex justify-center items-center" >
                     <span>Privacy</span>
-                    <i class="fas fa-chevron-right"></i>
+                    {window.location.width > 768 &&<i class="fas fa-chevron-right"></i>}
                 </Link>
             </div>
-            <div className="fixed w-2/5 h-screen bg-white border z-50" style={{right:7.5+"%",top:63+"px"}}>
+            <div className=" w-full mt-2 h-screen bg-white  z-50" >
                     <Route path="/settings/account" component={AccountInformation} />
                     <Route path="/settings/password" component={ChangePassword} />
                     <Route path="/settings/privacy" component={Privacy} />

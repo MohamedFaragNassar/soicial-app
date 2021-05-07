@@ -1,9 +1,8 @@
 from rest_framework import serializers
 from .models import Tweet, Like, Share, Tag, Notification
-from accounts.serializers import ProfileSerializer, UserSerializer
+from accounts.serializers import ProfileSerializer, UserSerializer,ProfileDataSerializer
 from django.conf import settings
 from accounts.models import Profile
-from accounts.serializers import ProfileSerializer
 import logging
 
 logger = logging.getLogger(__name__)

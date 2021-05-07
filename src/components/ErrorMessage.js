@@ -16,7 +16,7 @@ const ErrorMessage = ({message,close}) => {
             <div className="text-xl font-normal  max-w-full flex-initial">
                 {message}
             </div>
-            <div className="flex flex-auto flex-row-reverse">
+           {/*  <div className="flex flex-auto flex-row-reverse">
                 <div>
                     <svg onClick={close}  xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none"
                      viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" 
@@ -25,7 +25,7 @@ const ErrorMessage = ({message,close}) => {
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
