@@ -6,8 +6,8 @@ import {loginReducer,registerReducer,profileReducer,updateProfileReducer
     getNotificationsReducer,getBlocksReducer,searchUsersReducer, getSuggestionsReducer,
     accessRoomReducer,getFollowNotificationsReducer,makeRelationReducer} from './Reducers/usersReducers'
 
-import {addPostReducer,getPostsReducer,getPostDetailsReducer
-        ,postActionReducer,deletePostReducer,getTagPostsReducer,
+import {addPostReducer,getPostsReducer,getPostDetailsReducer,getUserPostsReducer,getUserLikedPostsReducer
+        ,postActionReducer,deletePostReducer,getTagPostsReducer,getLikedPostsReducer,
         getTagsReducer,clearBookmarksReducer,getBookMarksReducer} from './Reducers/PostReducers'
 
 const userData = localStorage.getItem("userdata")?JSON.parse(localStorage.getItem("userdata")):null
@@ -22,6 +22,9 @@ const reducer = combineReducers({
     personalImage : updatePersonalImageReducer,
     addPost:addPostReducer,
     getPosts:getPostsReducer,
+    likedPosts:getLikedPostsReducer,
+    userPosts:getUserPostsReducer,
+    userLikedPosts:getUserLikedPostsReducer,
     postDetails:getPostDetailsReducer,
     postAction:postActionReducer,
     deletePost:deletePostReducer,

@@ -20,7 +20,8 @@ const WhoToFollow = () => {
                 {users&&users.slice(0,3).map(user => 
                     <div className="flex items-center p-2 justify-between border-b">
                         <div className="flex items-center p-2 w-3/4">
-                            <img className="w-12 h-12 rounded-full" src={`/media/${user.personal_image}`} alt="profile" />
+                            <img className="w-12 h-12 rounded-full" 
+                            src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${user.personal_image}`} alt="profile" />
                             <div className="flex flex-col ml-2 w-3/4" >
                                 <Link className="text-lg font-medium truncate w-full" to={`/profile/${user.username}`}>
                                     {`${user.first_name} ${user.last_name}`}

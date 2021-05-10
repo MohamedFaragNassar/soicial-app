@@ -41,7 +41,7 @@ const Privacy = () => {
                             When selected, your Tweets and other account information are only visible to people who follow you
                         </span>
                 </div>
-                <div className="px-2 py-4 font-semibold text-lg border-b w-full text-left flex flex-col items-center" >
+               {/*  <div className="px-2 py-4 font-semibold text-lg border-b w-full text-left flex flex-col items-center" >
                     <div className=" w-full flex justify-between items-start">
                         <span>Allow message requests from everyone</span>
                         <input checked={profile.public_messages?"checked":""} 
@@ -52,7 +52,7 @@ const Privacy = () => {
                             Let people who you don’t follow send you message requests and add you to group conversations.
                             To reply to their messages, you need to accept the request.
                         </span>
-                </div>
+                </div> */}
                 <Link to="/settings/blocks" className="px-2 py-4 font-semibold text-lg border-b w-full text-left flex justify-between items-center" >
                         <span>Blocked Accounts</span>
                         <i class="fas fa-chevron-right"></i>

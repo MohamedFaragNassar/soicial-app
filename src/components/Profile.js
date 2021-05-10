@@ -3,12 +3,16 @@ import {useDispatch,useSelector} from 'react-redux'
 import Post from './Post'
 import EditProfile from '../components/EditProfile'
 import {useClickToClose} from '../helpers/CTC'
-import {getPosts} from '../Actions/PostActions'
+import {getPosts,getLikedPosts} from '../Actions/PostActions'
 import ErrorMessage from './ErrorMessage'
 import {modifyDate} from '../helpers/helpers'
 import InterActions from './InterActions'
+import Spinner from './Spinner'
+import { v4 as uuidv4 } from 'uuid';
+import MyTweets from './MyTweets'
+import LikedTweets from './LikedTweets'
+const Profile = () => {
 
-const Profile = (props) => {
     const [type,setType] = useState("mytweets")
     const [isOpen,setIsOpen] = useState(false)
     const [isUsersOpen,setIsUsersOpen] = useState(false)
@@ -28,12 +32,9 @@ const Profile = (props) => {
         setUsers(users)
         setIsUsersOpen(true)
     }
-    useEffect(() => {
-        dispatch(getPosts(type,page))
-    }, [type,page])
-
+ 
     return <>
-        {loading ? <div>loading</div> :error?<ErrorMessage message={error} /> : profile?
+        {loading ? <Spinner /> :error?<ErrorMessage message={error} /> : profile?
         <div className="w-full h-auto flex flex-col item-center justify-between bg-white" >
             <div className="relative" >
                 <img className="w-full h-60 rounded-sm "
@@ -52,30 +53,30 @@ const Profile = (props) => {
                        Edit Profile
                 </button>
                 <div className="mt-40 flex items-center justify-between w-10/12 md:w-7/12 mx-auto flex-wrap">
-                    <div>
+                   {profile.birthday&& <div>
                         <i className="fad fa-birthday-cake mr-2"></i>
                         <span>{modifyDate(profile.birthday)}</span>
-                    </div>
+                    </div>}
                    <div>
                         <i className="fal fa-calendar-alt cake mr-2"></i>
                         <span>{`joined ${modifyDate(profile.date_joined)}`}</span>
                    </div>
-                   <div>
-                        <i class="fal fa-location-circle mr-2"></i>
+                   {profile.location&&<div>
+                        <i className = "fal fa-location-circle mr-2"></i>
                         <span>{profile.location}</span>
-                    </div>
+                    </div>}
                 </div>
-                <div className="mt-5 flex items-center justify-start w-7/12 mx-auto">
+                {profile.website&&<div className="mt-5 flex items-center justify-start w-7/12 mx-auto">
                     <i className="fal fa-calendar-alt cake mr-2"></i>
                     <span>{profile.website}</span>
-                </div>
+                </div>}
                 <div className="w-full text-left p-4">{profile.bio}</div>
                 <div  className="flex items-center justify-between w-8/12 md:w-2/5 mx-auto" >
-                    <button onClick={()=>handelShowUsers(profile.following)}>
+                    <button onClick={()=>handelShowUsers(profile.following)} className="focus:outline-none">
                         <span className="cake mr-2 font-bold">{profile.following.length}</span>
                         <span>Following </span>
                     </button>
-                   <button onClick={()=>handelShowUsers(profile.followers)}>
+                   <button onClick={()=>handelShowUsers(profile.followers)} className="focus:outline-none">
                         <span className="cake mr-2 font-bold">{profile.followers.length}</span>
                         <span>Followers </span>
                    </button>
@@ -93,14 +94,7 @@ const Profile = (props) => {
                     </button>
                 </div>
             </div>
-            <div className="h-auto  bg-gray-200 pt-2" >
-                {posts&&posts.results.map(post => 
-                    <Post key={post.id} post={post} type="post" />    
-                )}
-                {posts?.next&&<button onClick={()=>setPage(page+1)} className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2">
-               Load More
-           </button>}
-            </div>
+            {type=="mytweets"?<MyTweets /> : <LikedTweets />}
         </div>:null}
         <InterActions isOpen={isUsersOpen} close={()=>setIsUsersOpen(false)} node={userNode} users={users}  />
        {profile&& <EditProfile isOpen={isOpen} close={()=>setIsOpen(false)} domNode={domNode} user={profile} />}

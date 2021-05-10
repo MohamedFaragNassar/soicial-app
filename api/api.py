@@ -34,8 +34,6 @@ def get_posts(request, type):
         sharedposts = Tweet.objects.filter(
             shares=request.user,parent=None).order_by("-createdAt")
         posts = myposts | sharedposts
-    elif(type == "likes"):
-        posts = Tweet.objects.filter(likes=request.user,parent=None).order_by("-createdAt")
     else:
         profile = Profile.objects.get(user=request.user)
         following_users = profile.following.values_list("id", flat=True)
@@ -49,6 +47,39 @@ def get_posts(request, type):
     serializer = PostSelializer(page, many=True)
     return paginator.get_paginated_response(serializer.data)
 
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_liked_posts(request):
+    posts = Tweet.objects.filter(likes=request.user,parent=None).order_by("-createdAt")
+    paginator = PageNumberPagination()  
+    page = paginator.paginate_queryset(posts, request)
+    serializer = PostSelializer(page, many=True)
+    return paginator.get_paginated_response(serializer.data)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_liked_posts(request,username):
+    user = User.objects.get(username=username)
+    posts = Tweet.objects.filter(likes=user,parent=None).order_by("-createdAt")
+    paginator = PageNumberPagination()  
+    page = paginator.paginate_queryset(posts, request)
+    serializer = PostSelializer(page, many=True)
+    return paginator.get_paginated_response(serializer.data)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_posts(request,username):
+    user = User.objects.get(username=username)
+    myposts = Tweet.objects.filter(
+            user__username=username,parent=None).order_by("-createdAt")
+    sharedposts = Tweet.objects.filter(
+        shares=user,parent=None).order_by("-createdAt")
+    posts = myposts | sharedposts
+    paginator = PageNumberPagination()  
+    page = paginator.paginate_queryset(posts, request)
+    serializer = PostSelializer(page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(["POST"])

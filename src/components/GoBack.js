@@ -8,7 +8,7 @@ const GoBack = ({title}) => {
     }
     return (
         <div className="w-full bg-white mr-auto border-b p-4 flex items-center justify-start">
-            <button onClick={(handleGoBack)}><i class="fas fa-long-arrow-left"></i></button>
+            <button className="focus:outline-none" onClick={(handleGoBack)}><i className="fas fa-long-arrow-left"></i></button>
             <span className="text-lg font-semibold md:font-bold ml-8" >{title}</span>
         </div>
     )

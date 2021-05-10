@@ -30,7 +30,8 @@ const Header = () => {
             style={window.screen.width>800?{paddingRight:31.5+"%"}:null}>
             <div className="h-full m-auto flex justify-start  md:justify-between items-center" style={{width:85+"%"}} >
             <button className="md:hidden relative" onClick={()=>setIsOpen(true)}>
-                <img className="w-10 h-10  rounded-full" src={`/media/${profile.personal_image}`} alt="profile" />
+                <img className="w-10 h-10  rounded-full" 
+                src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${profile.personal_image}`} alt="profile" />
                 {isOpen&&<MainMenu node={menuNode} />}
             </button>
             <Link className="text-2xl font-bold text-blue-600 ml-4 " to="/" >Social App</Link>

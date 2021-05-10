@@ -20,7 +20,8 @@ const InterActions = ({isOpen,node,close,users}) => {
                     <div className="flex items-center justify-between w-full">
                         <div className="flex items-center justify-center w-3/4" >
                             <img className="w-12 h-12 rounded-full" 
-                            src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${user.personal_image}`} alt="profile" />
+                            src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620330129/media/personalImages/${user.id}.jpg`} 
+                            alt="profile" />
                             <div className="flex flex-col items-start ml-2 w-full" >
                                 <Link className="text-lg font-medium truncate w-2/3" to={`/profile/${user.username}`} >
                                     {`${user.first_name} ${user.last_name}`}

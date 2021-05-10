@@ -16,6 +16,7 @@ const Signup = () => {
     const [Error,setError] = useState()
     
     const history = useHistory()
+    const {userData}   =  useSelector(state => state.userSignIn)
     
     const dispatch = useDispatch()
     const {loading,error,registeredUser} = useSelector(state => state.userRegister)
@@ -37,14 +38,14 @@ const Signup = () => {
     }
 
     useEffect(() => {
-        if(registeredUser){
+        if(userData){
             history.push("/")
         }
-    }, [registeredUser])
+    }, [userData])
 
     return (
         <form className="flex flex-col items-center justify-evenly w-full h-5/6 " onSubmit={(e)=>handleSignUp(e)}  >
-            <div className="text-2xl font-bold text-blue-600 text-left mb-2">Social App</div>
+            <Link to="/welcome" className="text-2xl font-bold text-blue-600 text-left mb-2">Social App</Link>
             <div className="w-11/12 relative  mb-4 mx-auto flex items-center justify-between" >
                <div className=" relative"  style={{width:48+"%"}} >
                     <span  className="absolute top-2 left-4">First Name</span>
@@ -90,7 +91,7 @@ const Signup = () => {
             <Link to="/welcome/signin/ " className="text-blue-600 hover:text-blue-800" >already have account ? Sign in</Link>
             {Error?<ErrorMessage message={Error} close={()=>setError(null)} />: 
                 error?<ErrorMessage message={error} close={()=>setError(null)} />: null}
-            {loading? <div>loading</div>:null}
+            {loading? <div className="w-full flex items-center justify-center "><Spinner /></div>:null}
         </form>
     )
 }

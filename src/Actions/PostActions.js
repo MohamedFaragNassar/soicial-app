@@ -6,7 +6,12 @@ import {ADD_POST_FAIL,ADD_POST_REQUEST,ADD_POST_SUCCESS
         GET_TAG_POSTS_FAIL,GET_TAG_POSTS_REQUEST,GET_TAG_POSTS_SUCCESS,
         GET_TAGS_FAIL,GET_TAGS_REQUEST,GET_TAGS_SUCCESS,
         DELETE_BOOKMARKS_FAIL,DELETE_BOOKMARKS_REQUEST,DELETE_BOOKMARKS_SUCCESS,CLEAR_BOOKMARKS,
-        GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS} from '../Constants/PostConstants'
+        GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,
+        GET_LIKED_POSTS_FAIL,GET_LIKED_POSTS_REQUEST,GET_LIKED_POSTS_SUCCESS,
+        GET_USER_LIKED_POSTS_FAIL,GET_USER_LIKED_POSTS_REQUEST,GET_USER_LIKED_POSTS_SUCCESS,
+        GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS} from '../Constants/PostConstants'
+
+    
 import Axios from 'axios'
 
 const addPost = (post)=>async(dispatch,getState) =>{
@@ -53,10 +58,54 @@ const getPosts = (type,page)=>async(dispatch,getState) =>{
                 "Authorization":`Token ${userData.token}`
             }
         })
-        console.log(data)
         dispatch({type:GET_POSTS_SUCCESS,payload:data})
     }catch(err){
         dispatch({type:GET_POSTS_FAIL,payload:err})
+    }
+}
+
+const getUserPosts = (username,page)=>async(dispatch,getState) =>{
+    dispatch({type:GET_USER_POSTS_REQUEST})
+    try{
+        const {userSignIn:{userData}} = getState()
+        const {data} = await Axios.get(`/api/userposts/${username}/?page=${page}`,{
+            headers:{
+                "Authorization":`Token ${userData.token}`
+            }
+        })
+        dispatch({type:GET_USER_POSTS_SUCCESS,payload:data})
+    }catch(err){
+        dispatch({type:GET_USER_POSTS_FAIL,payload:err})
+    }
+}
+
+const getLikedPosts = (page) => async(dispatch,getState) =>{
+    dispatch({type:GET_LIKED_POSTS_REQUEST})
+    try{
+        const {userSignIn:{userData}} = getState()
+        const {data} = await Axios.get(`/api/likedposts/?page=${page}`,{
+            headers:{
+                "Authorization":`Token ${userData.token}`
+            }
+        })
+        dispatch({type:GET_LIKED_POSTS_SUCCESS,payload:data})
+    }catch(err){
+        dispatch({type:GET_LIKED_POSTS_FAIL,payload:err})
+    }
+}
+
+const getUserLikedPosts = (page,username) => async(dispatch,getState) =>{
+    dispatch({type:GET_USER_LIKED_POSTS_REQUEST})
+    try{
+        const {userSignIn:{userData}} = getState()
+        const {data} = await Axios.get(`/api/userlikedposts/${username}/?page=${page}`,{
+            headers:{
+                "Authorization":`Token ${userData.token}`
+            }
+        })
+        dispatch({type:GET_USER_LIKED_POSTS_SUCCESS,payload:data})
+    }catch(err){
+        dispatch({type:GET_USER_LIKED_POSTS_FAIL,payload:err})
     }
 }
 
@@ -156,4 +205,4 @@ const getBookmarks = () => async(dispatch,getState) => {
 
 
 export {addPost,getPosts,getPostDetails,postAction,deletePost,getTagPosts,
-        getTags,clearBookmarks,getBookmarks,}
+        getTags,clearBookmarks,getBookmarks,getLikedPosts,getUserPosts,getUserLikedPosts}

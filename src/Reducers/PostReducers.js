@@ -6,7 +6,10 @@ DELETE_POST_SUCCESS,DELETE_POST_REQUEST,DELETE_POST_FAIL,
 GET_TAG_POSTS_FAIL,GET_TAG_POSTS_REQUEST,GET_TAG_POSTS_SUCCESS,
 GET_TAGS_FAIL,GET_TAGS_REQUEST,GET_TAGS_SUCCESS,ADD_POST,DELETE_POST,
 DELETE_BOOKMARKS_FAIL,DELETE_BOOKMARKS_REQUEST,DELETE_BOOKMARKS_SUCCESS,CLEAR_BOOKMARKS,
-GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS} from '../Constants/PostConstants'
+GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,
+GET_LIKED_POSTS_SUCCESS,GET_LIKED_POSTS_REQUEST,GET_LIKED_POSTS_FAIL,
+GET_USER_LIKED_POSTS_FAIL,GET_USER_LIKED_POSTS_REQUEST,GET_USER_LIKED_POSTS_SUCCESS,
+GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS} from '../Constants/PostConstants'
 
 
 const addPostReducer = (state={},action)=>{
@@ -42,7 +45,6 @@ const getPostsReducer = (state={},action)=>{
         case GET_POSTS_SUCCESS:
             try{
                 let results
-                console.log(state)
                 if(state.posts){
                      results = [...state.posts.results,...action.payload.results]
                 }else{
@@ -63,6 +65,83 @@ const getPostsReducer = (state={},action)=>{
         case DELETE_POST:
             return {posts:{results:state.posts.results.filter(e => e.id != action.payload),next:state.posts.next}} 
         case GET_POSTS_FAIL:
+            return {loading:false,error:action.payload} 
+        default:
+            return state 
+    }
+}
+
+const getUserPostsReducer = (state={},action)=>{
+    switch(action.type){
+        case GET_USER_POSTS_REQUEST:
+            return {loading:true,posts:state.posts}
+        case GET_USER_POSTS_SUCCESS:
+            try{
+                let results
+                if(state.posts){
+                     results = [...state.posts.results,...action.payload.results]
+                }else{
+                    results = [...action.payload.results]
+                }
+                const next = action.payload.next
+                return {loading:false,posts:{results,next}}
+
+            }catch(err){
+                console.log(err)
+            }
+        case GET_USER_POSTS_FAIL:
+            return {loading:false,error:action.payload} 
+        default:
+            return state 
+    }
+}
+
+const getLikedPostsReducer = (state={},action)=>{
+    switch(action.type){
+        case GET_LIKED_POSTS_REQUEST:
+            return {loading:true,likedPosts:state.likedPosts}
+        case GET_LIKED_POSTS_SUCCESS:
+            try{
+                let results
+                console.log(state)
+                if(state.likedPosts){
+                     results = [...state.likedPosts.results,...action.payload.results]
+                }else{
+                    results = [...action.payload.results]
+                }
+                const next = action.payload.next
+                return {loading:false,likedPosts:{results,next}}
+
+            }catch(err){
+                console.log(err)
+            }
+        case GET_LIKED_POSTS_FAIL:
+            return {loading:false,error:action.payload} 
+        default:
+            return state 
+    }
+}
+
+const getUserLikedPostsReducer = (state={},action)=>{
+    switch(action.type){
+        case GET_USER_LIKED_POSTS_REQUEST:
+            return {loading:true,likedPosts:state.likedPosts}
+        case GET_USER_LIKED_POSTS_SUCCESS:
+            try{
+                let results
+                console.log(state)
+                if(state.likedPosts){
+                     results = [...state.likedPosts.results,...action.payload.results]
+                }else{
+                    results = [...action.payload.results]
+                }
+                const next = action.payload.next
+                return {loading:false,likedPosts:{results,next}}
+
+            }catch(err){
+                console.log(err)
+            }
+        case GET_USER_LIKED_POSTS_FAIL:
             return {loading:false,error:action.payload} 
         default:
             return state 
@@ -150,4 +229,5 @@ const getBookMarksReducer = (state={},action)=>{
 }
 
 export {addPostReducer,getPostsReducer,getPostDetailsReducer,postActionReducer,deletePostReducer
-        ,getTagPostsReducer,getTagsReducer,clearBookmarksReducer,getBookMarksReducer,}
+        ,getTagPostsReducer,getTagsReducer,clearBookmarksReducer,getBookMarksReducer,getLikedPostsReducer,
+        getUserLikedPostsReducer,getUserPostsReducer}

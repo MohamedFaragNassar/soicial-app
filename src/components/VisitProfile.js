@@ -7,6 +7,9 @@ import {getUserProfile,relation} from '../Actions/userActions'
 import { Link, Redirect } from 'react-router-dom'
 import {useClickToClose} from '../helpers/CTC'
 import InterActions from './InterActions'
+import UserTweets from './UserTweets'
+import UserLikes from './UserLikes'
+import Spinner from './Spinner'
 
 const VisitProfile = (props) => {
     
@@ -17,6 +20,7 @@ const VisitProfile = (props) => {
     const {newRelation} = useSelector(state => state.makeRelation)
     const [isUsersOpen,setIsUsersOpen] = useState(false)
     const [users,setUsers] = useState()
+    
 
     const userNode = useClickToClose(()=>setIsUsersOpen(false),"#interActions")
     const {loading,error,visitedProfile} = useSelector(state => state.visitProfile)
@@ -28,6 +32,7 @@ const VisitProfile = (props) => {
         checkRequest =   visitedProfile.userProfile.follow_requests.filter(e => e == profile.id).length > 0
     }
 
+   
     const handleMakeRelation = (action) =>{
         dispatch(relation(username,action))
     } 
@@ -39,13 +44,14 @@ const VisitProfile = (props) => {
 
     useEffect(() => {
         dispatch(getUserProfile(username))
-     }, [username,newRelation])
+     }, [username,newRelation,])
     
     if(username === profile?.username){
         return <Redirect path="/profile" />
     }
     return <>
-        {loading ? <div>loading</div> :error?<ErrorMessage message={error} /> : profile&&visitedProfile?
+        {loading ? <div className="w-full flex items-center justify-center"><Spinner /></div> 
+        :error?<ErrorMessage message={error} /> : profile&&visitedProfile?
         <div className="w-full h-auto flex flex-col item-center justify-between bg-white" >
             <div className="relative" >
                 <img className="w-full h-60 rounded-sm " 
@@ -59,16 +65,16 @@ const VisitProfile = (props) => {
                     </h2>
                     <span className="mt-1.5 text-sm text-gray-600 ml-10" >{`@${visitedProfile.userProfile.username}`}</span>
                 </div>
-                    <div  className="absolute top-64 right-4 flex items-center justify-center " >
+                    <div  className=" mt-32 md:mt-0 md:absolute md:top-64 md:right-4 flex items-center justify-center " >
                         <button  className=" px-6 py-2  border-2 rounded-full border-red-600
                             font-semibold text-lg mr-2  hover:bg-red-600 hover:text-white" 
                             onClick={()=>handleMakeRelation("block")}>
                                 block
                         </button>
-                        {visitedProfile.userProfile.public_messages?<Link to={`/messages/${visitedProfile.userProfile.id}`} className="border-2
+                        {/* {visitedProfile.userProfile.public_messages?<Link to={`/messages/${visitedProfile.userProfile.id}`} className="border-2
                          border-blue-400 rounded-full text-lg px-3 py-2  hover:bg-blue-400 hover:text-white">
                             <i className="far fa-envelope"></i>
-                        </Link>:null}
+                        </Link>:null} */}
                         {chechFollowing?
                             <button className=" px-6 py-2  border-2 rounded-full border-blue-400 ml-2
                             font-semibold text-lg hover:bg-blue-400 hover:text-white " onClick={()=>handleMakeRelation("unfollow")} >
@@ -84,7 +90,7 @@ const VisitProfile = (props) => {
                             </button>
                         }
                     </div>
-                <div className="mt-40 flex items-center justify-between w-7/12 mx-auto">
+                <div className="md:mt-40 mt-10 flex items-center justify-between w-5/6 md:w-7/12 mx-auto">
                     <div>
                         <i className="fad fa-birthday-cake mr-2"></i>
                         <span>{modifyDate(visitedProfile.userProfile.birthday)}</span>
@@ -103,12 +109,12 @@ const VisitProfile = (props) => {
                     <span>{visitedProfile.userProfile.website}</span>
                 </div>}
                 <div className="w-full text-left p-4">{visitedProfile.userProfile.bio}</div>
-                <div  className="flex items-center justify-between w-2/5 mx-auto" >
-                    <button  onClick={()=>handelShowUsers(visitedProfile.userProfile.following)}>
+                <div  className="flex items-center justify-between w-2/3 md:w-2/5 mx-auto" >
+                    <button className=" focus:outline-none "  onClick={()=>handelShowUsers(visitedProfile.userProfile.following)}>
                         <span className="cake mr-2 font-bold">{visitedProfile.userProfile.following.length}</span>
                         <span>Following </span>
                     </button>
-                   <button onClick={()=>handelShowUsers(visitedProfile.userProfile.followers)}>
+                   <button className=" focus:outline-none " onClick={()=>handelShowUsers(visitedProfile.userProfile.followers)}>
                         <span className="cake mr-2 font-bold">{visitedProfile.userProfile.followers.length}</span>
                         <span>Followers </span>
                    </button>
@@ -116,21 +122,18 @@ const VisitProfile = (props) => {
             </div>
             <div className="w-full" >
                 <div className="w-full h-16 border-b mt-5 ">
-                    <button onClick={()=>setType("mytweets")}  className={`w-1/2 h-full text-xl font-bold\
+                    <button onClick={()=>setType("mytweets")}  className={`w-1/2 h-full text-xl  focus:outline-none  font-bold\
                      ${type==="mytweets"?"text-blue-600 border-b-2 border-blue-600":null} `}>
                         Tweets
                     </button>
-                    <button onClick={()=>setType("likes")} className={`w-1/2 h-full text-xl font-bold \
+                    <button onClick={()=>setType("likes")} className={`w-1/2 h-full text-xl  focus:outline-none font-bold \
                         ${type==="likes"?"text-blue-600 border-b-2 border-blue-600":null}`} >
                         Likes
                     </button>
                 </div>
             </div>
-            <div className="h-auto  bg-gray-200" >
-                {visitedProfile.posts.map(post => 
-                    <Post post={post} type="post" />    
-                )}
-            </div>
+            {type=="mytweets"? <UserTweets username={visitedProfile.userProfile.username} /> : 
+            <UserLikes username={visitedProfile.userProfile.username} />}
         </div>:null}
         <InterActions isOpen={isUsersOpen} close={()=>setIsUsersOpen(false)} node={userNode} users={users}  />
 

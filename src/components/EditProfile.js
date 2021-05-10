@@ -62,7 +62,7 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
             <div className="relative w-full">
                 <div className="w-full relative" > 
                     <img className="w-full h-48 " src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328825/${user.cover_image}`}/>
-                    <label for="cover_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100
+                    <label htmlFor="cover_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100
                      bg-white rounded-full" style={{left:45+"%",top:45+"%"}} >
                             <i className="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
                     </label>
@@ -71,7 +71,7 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
                 <div className="w-40 flex flex-col item-center justify-between  absolute top-28 " >
                     <div className="w-full h-full relative" >
                         <img src={`https://res.cloudinary.com/dt3fknrkp/image/upload/v1620328850/${user.personal_image}`} className="w-32 h-32 rounded-full border-4 border-white mx-auto" />
-                        <label for="personal_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100 
+                        <label htmlFor="personal_image" className="absolute text-xl cursor-pointer px-3 py-2 opacity-50 hover:opacity-100 
                         bg-white rounded-full" style={{left:36+"%",top:35+"%"}} >
                             <i className="fal fa-camera-alt opacity-60 hover:opacity-100"></i> 
                         </label>
@@ -84,28 +84,29 @@ const EditProfile = ({isOpen,close,domNode,user}) => {
                     <div className="relative" style={{width:45+"%"}}>
                         <span className="absolute top-2 left-4">First Name</span>
                         <input onChange={(e)=>setFirstname(e.target.value)} defaultValue={user.first_name} 
-                        className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                        className="w-full pb-4 pt-8 px-4 border-2 rounded-lg  focus:outline-none  focus:border-blue-400" type="text"/>
                     </div>
                     <div  className="relative"  style={{width:45+"%"}}>
                         <span className="absolute top-2 left-4">Last Name</span>
                         <input onChange={(e)=>setLasttname(e.target.value)} defaultValue={user.last_name} 
-                        className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                        className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400  focus:outline-none " type="text"/>
                     </div>
                 </div>
                 <div  className="w-11/12 relative  md:mb-4 mb-2 mx-auto">
                     <span  className="absolute top-2 left-4" >Bio</span>
-                    <textarea defaultValue={user.bio} className="w-full h-20 pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400"
+                    <textarea defaultValue={user.bio} 
+                    className="w-full h-20 pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400  focus:outline-none "
                      style={{resize:"none"}} onChange={(e)=>setBio(e.target.value)}  />
                 </div>
                 <div  className="w-11/12 relative  md:mb-4 mb-2 mx-auto">
                     <span className="absolute top-2 left-4" >Location</span>
                     <input defaultValue={user.location} onChange={(e)=>setLocation(e.target.value)}
-                     className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                     className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400  focus:outline-none " type="text"/>
                 </div>
                 <div  className="w-11/12 relative  md:mb-4 mb-2 mx-auto">
                     <span className="absolute top-2 left-4" >Website</span>
                     <input defaultValue={user.website} onChange={(e)=>setWebsite(e.target.value)}
-                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400  focus:outline-none" type="text"/>
                 </div>
             </div>
         </div>

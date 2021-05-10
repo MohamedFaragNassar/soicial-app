@@ -30,12 +30,7 @@ const MainMenu = ({node}) => {
                     <i className="fas fa-bell text-lg"></i>
                     <span className="ml-8" >Notifications</span>
                 </Link>
-                <Link to="/requests" className="w-max flex items-center justify-start text-md font-semibold p-6 
-                rounded-full hover:bg-gray-200 "  >
-                    <i className="fas fa-user-plus"></i>
-                    <span className="ml-8" >Requests</span>
-                </Link>
-                <Link to="/search" className="w-max flex items-center justify-start text-md font-semibold p-6 rounded-full hover:bg-gray-200 lg:hidden "  >
+               <Link to="/search" className="w-max flex items-center justify-start text-md font-semibold p-6 rounded-full hover:bg-gray-200 lg:hidden "  >
                     <i className="fas fa-search"></i>
                     <span className="ml-8" >Search</span>
 

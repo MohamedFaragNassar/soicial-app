@@ -36,6 +36,7 @@ const register = (user) => async(dispatch)=>{
         dispatch({type:USER_REGISTER_REQUEST})
         const {data} = await Axios.post("/users/register",user)
         localStorage.setItem("userdata",JSON.stringify(data))
+        dispatch({type:USER_LOGIN_SUCCESS,payload:data})
         dispatch({type:USER_REGISTER_SUCCESS,payload:data})
     }catch(err){
         dispatch({type:USER_REGISTER_FAIL,payload:err.response.data[Object.keys(err.response.data)[0]][0]})
@@ -267,7 +268,11 @@ const searchUsers = (keyword)=>async(dispatch,getState)=>{
                 "Authorization":`Token ${userData.token}`
             }
         })
-        dispatch({type:SEARCH_USERS_SUCCESS,payload:data})
+        if(typeof(data)=="object"){
+            dispatch({type:SEARCH_USERS_SUCCESS,payload:data})
+        }else{
+            dispatch({type:SEARCH_USERS_FAIL,payload:"somthing went wronge"})
+        }
     }catch(err){
         dispatch({type:SEARCH_USERS_FAIL,payload:err})
     }

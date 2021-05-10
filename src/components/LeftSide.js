@@ -54,14 +54,13 @@ const LeftSide = () => {
                     <i className="fas fa-user-alt"></i>
                     <span className="ml-10 hidden lg:block" >Profile</span>
                 </Link>
-                <Link to="/notifications" className="w-max flex items-center justify-start text-lg font-semibold p-6 rounded-full hover:bg-gray-200 "  >
+                <Link to="/notifications" className="w-max flex items-center justify-start text-lg font-semibold 
+                    px-6 py-4 md:py-6 rounded-full hover:bg-gray-200 "  >
                     <span className="relative">
                         <i className="fas fa-bell text-lg"></i>
                         {num>0&&<Number number={num} right={2}/>}
-                        
                     </span>
                     <span className="ml-10 hidden lg:block" >Notifications</span>
-                    
                 </Link>
                 <Link to="/search" className="w-max flex items-center justify-start text-lg font-semibold p-6 rounded-full hover:bg-gray-200 lg:hidden "  >
                     <i className="fas fa-search"></i>

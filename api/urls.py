@@ -1,10 +1,13 @@
 from django.urls import path
 from .api import (get_posts, add_post, tweet_action, tweet_datails, remove_post, get_tag_posts, get_tags, clear_bookmarks, visit_profile,
-                  get_notifications, read_notification, get_bookmarks,
+                  get_notifications, read_notification, get_bookmarks,get_liked_posts,get_user_liked_posts,get_user_posts
                   )
 
 urlpatterns = [
     path("api/posts/<str:type>/", get_posts),
+    path("api/likedposts/", get_liked_posts),
+    path("api/userposts/<str:username>/", get_user_posts),
+    path("api/userlikedposts/<str:username>/", get_user_liked_posts),
     path("api/post", add_post),
     path("api/deletepost", remove_post),
     path("api/action", tweet_action),
