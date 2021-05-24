@@ -11,6 +11,7 @@ import Spinner from './Spinner'
 import { v4 as uuidv4 } from 'uuid';
 import MyTweets from './MyTweets'
 import LikedTweets from './LikedTweets'
+
 const Profile = () => {
 
     const [type,setType] = useState("mytweets")

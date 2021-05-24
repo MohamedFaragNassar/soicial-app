@@ -6,10 +6,10 @@ DELETE_POST_SUCCESS,DELETE_POST_REQUEST,DELETE_POST_FAIL,
 GET_TAG_POSTS_FAIL,GET_TAG_POSTS_REQUEST,GET_TAG_POSTS_SUCCESS,
 GET_TAGS_FAIL,GET_TAGS_REQUEST,GET_TAGS_SUCCESS,ADD_POST,DELETE_POST,
 DELETE_BOOKMARKS_FAIL,DELETE_BOOKMARKS_REQUEST,DELETE_BOOKMARKS_SUCCESS,CLEAR_BOOKMARKS,
-GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,
+GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,CLEAR_GET_POSTS,
 GET_LIKED_POSTS_SUCCESS,GET_LIKED_POSTS_REQUEST,GET_LIKED_POSTS_FAIL,
 GET_USER_LIKED_POSTS_FAIL,GET_USER_LIKED_POSTS_REQUEST,GET_USER_LIKED_POSTS_SUCCESS,
-GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS} from '../Constants/PostConstants'
+GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS,ADD_REPLY, DELETE_REPLY} from '../Constants/PostConstants'
 
 
 const addPostReducer = (state={},action)=>{
@@ -65,7 +65,9 @@ const getPostsReducer = (state={},action)=>{
         case DELETE_POST:
             return {posts:{results:state.posts.results.filter(e => e.id != action.payload),next:state.posts.next}} 
         case GET_POSTS_FAIL:
-            return {loading:false,error:action.payload} 
+            return {loading:false,error:action.payload}
+        case CLEAR_GET_POSTS:
+            return{posts:null} 
         default:
             return state 
     }
@@ -181,7 +183,11 @@ const getPostDetailsReducer = (state={},action)=>{
         case GET_POST_DETAILS_SUCCESS:
             return {loading:false,post:action.payload}
         case GET_POST_DETAILS_FAIL:
-            return {loading:false,error:action.payload} 
+            return {loading:false,error:action.payload}
+        case ADD_REPLY : 
+            return {post:{...state.post,replies:[...state.post.replies,action.payload]}}
+        case DELETE_REPLY :
+            return {post:{...state.post,replies:state.post.replies.filter(e => e.id != action.payload)}} 
         default:
             return state 
     }

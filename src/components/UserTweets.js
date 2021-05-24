@@ -12,7 +12,6 @@ const UserTweets = ({username}) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         dispatch(getUserPosts(username,page))
     }, [page])
 

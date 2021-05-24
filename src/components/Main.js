@@ -7,7 +7,7 @@ import {useClickToClose} from '../helpers/CTC'
 import Picker from 'emoji-picker-react'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid';
-
+import {CLEAR_GET_POSTS} from '../Constants/PostConstants'
 const Main = () => {
      
     const [content,setContent] = useState()
@@ -72,6 +72,7 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(getPosts("all",page))
+        return ()=> dispatch({type:CLEAR_GET_POSTS})
     }, [page])
 
 

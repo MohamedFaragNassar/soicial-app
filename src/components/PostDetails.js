@@ -20,7 +20,7 @@ const PostDetails = (props) => {
             <Post post={post} type="post" type="details" /> 
             <div>
                 {post.replies.map(post => 
-                    <Post post={post} type="reply"  />    
+                    <Post key={post.id} post={post} type="reply"  />    
                 )}
             </div>
         </div>:null}

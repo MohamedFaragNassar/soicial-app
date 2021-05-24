@@ -32,7 +32,7 @@ def get_posts(request, type):
         myposts = Tweet.objects.filter(
             user__username=request.user,parent=None).order_by("-createdAt")
         sharedposts = Tweet.objects.filter(
-            shares=request.user,parent=None).order_by("-createdAt")
+            shares=request.user).order_by("-createdAt")
         posts = myposts | sharedposts
     else:
         profile = Profile.objects.get(user=request.user)

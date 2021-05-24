@@ -118,12 +118,19 @@ const getNotificationsReducer = (state={},action)=>{
         case GET_NOTIFICATIONS_FAIL:
             return {loading:false,error:action.payload} 
         case READ:
-            const modified = state.notifications.forEach(e => {
+           /*  const modified = state.notifications.forEach(e => {
                 if(e.id == action.payload){
                     e.is_read = true
                 }
-            })
-            return{notifications:modified}
+            }) */
+            return{notifications:state.notifications.map(e => {
+                if(e.id == action.payload){
+                    e.is_read = true
+                    return e
+                }else{
+                    return e
+                }
+            })}
         default:
             return state 
     }

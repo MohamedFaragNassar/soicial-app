@@ -163,7 +163,7 @@ const Post = ({post,type}) => {
                     </div>
             </div>
             }
-           {isMenuOpen&& <PostMenu post={post} node={node} close={()=>setIsMenuOpen(false)} />}
+           {isMenuOpen&& <PostMenu post={post} type={type} node={node} close={()=>setIsMenuOpen(false)} />}
             <AddReply post={post} isOpen={isOpen} close={()=>setIsOpen(false)} node={addReplyNode} />
             <InterActions isOpen={isInterActionsOpen} close={()=>setIsInterActionsOpen(false)}
              node={interActionsNode} users={interActingUsers}/>
