@@ -11,7 +11,8 @@ const Welcome = () => {
                 <img src="https://res.cloudinary.com/dt3fknrkp/image/upload/v1620652652/media/welcome_uuixok.jpg" 
                 className="w-full h-full" />
             </div>
-            <div className="h-full w-full md:w-1/2 flex flex-col items-center justify-start mt-20 md:mt-0 md:justify-center mx-auto" >
+            <div className="h-full w-full md:w-1/2 flex flex-col items-center justify-start
+             mt-20 md:mt-0 md:justify-center mx-auto focus:outline-none" >
                 <Route path="/welcome" exact={true} component={Ghuest} />
                 <Route path="/welcome/signin" component={Signin} />
                 <Route path="/welcome/signup" component={Signup} />

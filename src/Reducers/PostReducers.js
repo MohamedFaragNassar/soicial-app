@@ -9,7 +9,7 @@ DELETE_BOOKMARKS_FAIL,DELETE_BOOKMARKS_REQUEST,DELETE_BOOKMARKS_SUCCESS,CLEAR_BO
 GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,CLEAR_GET_POSTS,
 GET_LIKED_POSTS_SUCCESS,GET_LIKED_POSTS_REQUEST,GET_LIKED_POSTS_FAIL,
 GET_USER_LIKED_POSTS_FAIL,GET_USER_LIKED_POSTS_REQUEST,GET_USER_LIKED_POSTS_SUCCESS,
-GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS,ADD_REPLY, DELETE_REPLY} from '../Constants/PostConstants'
+GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS,ADD_REPLY, DELETE_REPLY, CLEAR_GET_USER_POSTS} from '../Constants/PostConstants'
 
 
 const addPostReducer = (state={},action)=>{
@@ -45,6 +45,7 @@ const getPostsReducer = (state={},action)=>{
         case GET_POSTS_SUCCESS:
             try{
                 let results
+                console.log(state.posts)
                 if(state.posts){
                      results = [...state.posts.results,...action.payload.results]
                 }else{
@@ -92,7 +93,9 @@ const getUserPostsReducer = (state={},action)=>{
                 console.log(err)
             }
         case GET_USER_POSTS_FAIL:
-            return {loading:false,error:action.payload} 
+            return {loading:false,error:action.payload}
+        case CLEAR_GET_USER_POSTS:
+                return{posts:null} 
         default:
             return state 
     }

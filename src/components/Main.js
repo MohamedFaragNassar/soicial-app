@@ -72,9 +72,14 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(getPosts("all",page))
-        return ()=> dispatch({type:CLEAR_GET_POSTS})
+        //return ()=> dispatch({type:CLEAR_GET_POSTS})
     }, [page])
+    
+    useEffect(() => {
+        return ()=> dispatch({type:CLEAR_GET_POSTS})
+    }, [])
 
+    
 
     return <>
         
@@ -133,7 +138,8 @@ const Main = () => {
                 <Post key={uuidv4()} post={post} type="post" />    
             )}
 
-           {posts?.next&&<button onClick={()=>setPage(page+1)} className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2">
+           {posts?.next&&<button onClick={()=>setPage(page+1)} 
+           className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2 focus:outline-none">
                Load More
            </button>}
         

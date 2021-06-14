@@ -14,15 +14,20 @@ const MyTweets = () => {
     console.log(posts)
     useEffect(() => {
         dispatch(getPosts("mytweets",page))
-        return ()=> dispatch({type:CLEAR_GET_POSTS})
+        
     }, [page])
+   
+    useEffect(() => {
+       return ()=> dispatch({type:CLEAR_GET_POSTS})
+    }, [])
 
     return <>
         <div className="h-auto bg-gray-200 pt-2" >
                 {posts&&posts.results.map(post => 
                 <Post key={uuidv4()} post={post} type="post" />    
                     )}
-            {posts?.next &&<button onClick={()=>setPage(page+1)} className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2">
+            {posts?.next &&<button onClick={()=>setPage(page+1)} 
+            className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2 focus:outline-none">
                 Load More
             </button>}
         </div>
