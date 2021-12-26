@@ -134,8 +134,8 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            {posts&&posts.results.map(post => 
-                <Post key={uuidv4()} post={post} type="post" />    
+            {posts&&posts.results.map((post,index) => 
+                <Post key={index} post={post} type="post" />    
             )}
 
            {posts?.next&&<button onClick={()=>setPage(page+1)} 

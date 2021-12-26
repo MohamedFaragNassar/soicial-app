@@ -14,7 +14,7 @@ import {USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS
     ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,UPDATE_PROFILE,
     GET_FOLLOW_NOTIFICATIONS_FAIL,GET_FOLLOW_NOTIFICATIONS_REQUEST,GET_FOLLOW_NOTIFICATIONS_SUCCESS,
     ADD_RELATION_SUCCESS,ADD_RELATION_REQUEST,ADD_RELATION_FAIL,
-CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY, READ_FOLLOW} from '../Constants/userConstants'
+CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY, READ_FOLLOW, ADD_BLOCK} from '../Constants/userConstants'
 
 const loginReducer = (state={},action)=>{
     switch(action.type){
@@ -201,6 +201,9 @@ const  getSuggestionsReducer = (state={},action)=>{
         case FOLLOW_USER :
             const newUsers = state.users.filter(e => e.username != action.payload)
             return {users:[...newUsers]} 
+        case ADD_BLOCK :
+            const newData = state.users.filter(e => e.username != action.payload)
+            return {users:[...newData]} 
         default:
             return state 
     }

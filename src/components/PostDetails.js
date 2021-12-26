@@ -9,17 +9,21 @@ const PostDetails = (props) => {
     const dispatch = useDispatch()
     const {loading,error,post} = useSelector(state => state.postDetails)
     const id = props.match.params.id
-
     useEffect(() => {
         dispatch(getPostDetails(id))
     }, [id])
+    
+    console.log(typeof(id))
+    if(!id || id == "null"){
+       return <ErrorMessage message={"this post is no longer exist"} />
+    }
     return <>
         {loading?<div>loading</div>:error?<ErrorMessage message={error.message} /> :post?
             <div>
             <GoBack title ="Thread" />
             <Post post={post} type="post" type="details" /> 
             <div>
-                {post.replies.map(post => 
+                {post?.replies?.map(post => 
                     <Post key={post.id} post={post} type="reply"  />    
                 )}
             </div>

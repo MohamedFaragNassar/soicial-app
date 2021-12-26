@@ -15,7 +15,7 @@ import {USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGOUT
     ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,READ_FOLLOW,
     GET_FOLLOW_NOTIFICATIONS_FAIL,GET_FOLLOW_NOTIFICATIONS_REQUEST,GET_FOLLOW_NOTIFICATIONS_SUCCESS,
     MAKE_RELATION,REMOVE_BLOCK,UPDATE_PROFILE,CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY,
-    ADD_RELATION_FAIL,ADD_RELATION_REQUEST,ADD_RELATION_SUCCESS} from '../Constants/userConstants'
+    ADD_RELATION_FAIL,ADD_RELATION_REQUEST,ADD_RELATION_SUCCESS, ADD_BLOCK} from '../Constants/userConstants'
 
 import Axios from "axios"
 
@@ -127,6 +127,8 @@ const relation = (username,action) => async (dispatch,getState) => {
             dispatch({type: ADD_RELATION_SUCCESS,payload:data})
             if(action==="unblock"){
                 dispatch({type:REMOVE_BLOCK,payload:username})
+            }else if(action==="block"){
+                dispatch({type:ADD_BLOCK,payload:username})
             }
         }
 
