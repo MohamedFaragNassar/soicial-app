@@ -221,7 +221,7 @@ def update_info(request):
         User.objects.filter(username = request.user.username).update(username = request.data["username"])
     elif(action=="gender"):
         Profile.objects.filter(user__username = request.user.username).update(gender = request.data["gender"])
-        logger.error(Profile.objects.get(user__username = request.user.username).gender)
+        
     user = User.objects.get(id = request.user.id)
     serializer = UserSerializer(user)
     token, created = Token.objects.get_or_create(user=user)
@@ -254,12 +254,15 @@ def search_users(request, keyword):
 def suggest_users(request):
     my_profile = Profile.objects.get(user=request.user)
     my_following = my_profile.following.all()
+    blocks = my_profile.blocks.all()
     suggests = []
     for usr in my_following :
         #logger.error(usr.following.exclude(id = request.user.id))
-        suggests.extend((list(usr.followers.exclude(id__in = my_following).exclude(id = request.user.id))))
+        suggests.extend((list(usr.followers.exclude(id__in = my_following).exclude(id = request.user.id)
+                                            .exclude(id__in = blocks))))
     if(len(suggests) < 10):
-        suggests.extend(list(Profile.objects.filter().exclude(id__in = my_following).exclude(id = request.user.id)[:10]))
+        suggests.extend(list(Profile.objects.filter().exclude(id__in = my_following).exclude(id__in = blocks)
+        .exclude(id = request.user.id)[:10]))
     serializer = ProfileSerializer(set(suggests),many=True)
     return Response(serializer.data)
 

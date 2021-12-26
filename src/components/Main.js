@@ -7,7 +7,7 @@ import {useClickToClose} from '../helpers/CTC'
 import Picker from 'emoji-picker-react'
 import Spinner from '../components/Spinner'
 import { v4 as uuidv4 } from 'uuid';
-
+import {CLEAR_GET_POSTS} from '../Constants/PostConstants'
 const Main = () => {
      
     const [content,setContent] = useState()
@@ -72,8 +72,14 @@ const Main = () => {
 
     useEffect(() => {
         dispatch(getPosts("all",page))
+        //return ()=> dispatch({type:CLEAR_GET_POSTS})
     }, [page])
+    
+    useEffect(() => {
+        return ()=> dispatch({type:CLEAR_GET_POSTS})
+    }, [])
 
+    
 
     return <>
         
@@ -128,11 +134,12 @@ const Main = () => {
                     </div>
                 </div>
             </div>
-            {posts&&posts.results.map(post => 
-                <Post key={uuidv4()} post={post} type="post" />    
+            {posts&&posts.results.map((post,index) => 
+                <Post key={index} post={post} type="post" />    
             )}
 
-           {posts?.next&&<button onClick={()=>setPage(page+1)} className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2">
+           {posts?.next&&<button onClick={()=>setPage(page+1)} 
+           className="w-full h-10 bg-blue-50 hover:bg-blue-100 mb-2 focus:outline-none">
                Load More
            </button>}
         

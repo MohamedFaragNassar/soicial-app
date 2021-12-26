@@ -42,7 +42,7 @@ class Tag(models.Model):
 
 class Tweet(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(max_length=250)
+    content = models.TextField()
     image = models.ImageField(upload_to=image_name,null=True, blank=True)
     likes = models.ManyToManyField(
         User, related_name="tweet_like", blank=True, through=Like)

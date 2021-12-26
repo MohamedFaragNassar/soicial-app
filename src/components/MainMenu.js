@@ -20,11 +20,11 @@ const MainMenu = ({node}) => {
                     <i className="fas fa-user-alt"></i>
                     <span className="ml-8" >Profile</span>
                 </Link>
-                <Link to="/messages" className="w-max flex items-center justify-start text-md font-semibold p-6 
+               {/*  <Link to="/messages" className="w-max flex items-center justify-start text-md font-semibold p-6 
                 rounded-full hover:bg-gray-200 "  >
                     <i className="fas fa-comments-alt"></i>
                     <span className="ml-8" >Messages</span>
-                </Link>
+                </Link> */}
                 <Link to="/notifications" className="w-max flex items-center justify-start text-md font-semibold p-6 
                 rounded-full hover:bg-gray-200 "  >
                     <i className="fas fa-bell text-lg"></i>

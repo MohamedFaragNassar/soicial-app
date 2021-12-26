@@ -22,6 +22,10 @@ const LeftSide = () => {
         dispatch(logout())
         //history.push("/welcome")
     }
+
+    /* if(error){
+        dispatch(logout())
+    } */
     
     useEffect(() => {
         if(!profile){
@@ -69,7 +73,7 @@ const LeftSide = () => {
                     <i className="fas fa-bookmark"></i>
                    <span className="ml-10 hidden lg:block" >Bookmarks</span>
                 </Link>
-                <Link to="settings"  className="w-max flex items-center justify-start text-lg font-semibold p-6 rounded-full
+                <Link to="/settings"  className="w-max flex items-center justify-start text-lg font-semibold p-6 rounded-full
                      hover:bg-gray-200 "  >
                     <i className="fas fa-cog"></i>
                     <span className="ml-10 hidden lg:block" >Settings</span>

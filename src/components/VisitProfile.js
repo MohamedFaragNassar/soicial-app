@@ -44,7 +44,7 @@ const VisitProfile = (props) => {
 
     useEffect(() => {
         dispatch(getUserProfile(username))
-     }, [username,newRelation,])
+     }, [username,newRelation])
     
     if(username === profile?.username){
         return <Redirect path="/profile" />

@@ -14,7 +14,7 @@ import {USER_LOGIN_FAIL,USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS
     ACCESS_ROOM_FAIL,ACCESS_ROOM_REQUEST,ACCESS_ROOM_SUCCESS,UPDATE_PROFILE,
     GET_FOLLOW_NOTIFICATIONS_FAIL,GET_FOLLOW_NOTIFICATIONS_REQUEST,GET_FOLLOW_NOTIFICATIONS_SUCCESS,
     ADD_RELATION_SUCCESS,ADD_RELATION_REQUEST,ADD_RELATION_FAIL,
-CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY, READ_FOLLOW} from '../Constants/userConstants'
+CHANGE_PRIVACY,CHANGE_MESSAGES_PRIVACY, READ_FOLLOW, ADD_BLOCK} from '../Constants/userConstants'
 
 const loginReducer = (state={},action)=>{
     switch(action.type){
@@ -118,12 +118,19 @@ const getNotificationsReducer = (state={},action)=>{
         case GET_NOTIFICATIONS_FAIL:
             return {loading:false,error:action.payload} 
         case READ:
-            const modified = state.notifications.forEach(e => {
+           /*  const modified = state.notifications.forEach(e => {
                 if(e.id == action.payload){
                     e.is_read = true
                 }
-            })
-            return{notifications:modified}
+            }) */
+            return{notifications:state.notifications.map(e => {
+                if(e.id == action.payload){
+                    e.is_read = true
+                    return e
+                }else{
+                    return e
+                }
+            })}
         default:
             return state 
     }
@@ -194,6 +201,9 @@ const  getSuggestionsReducer = (state={},action)=>{
         case FOLLOW_USER :
             const newUsers = state.users.filter(e => e.username != action.payload)
             return {users:[...newUsers]} 
+        case ADD_BLOCK :
+            const newData = state.users.filter(e => e.username != action.payload)
+            return {users:[...newData]} 
         default:
             return state 
     }

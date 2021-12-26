@@ -12,6 +12,8 @@ const TweetNotf = () => {
         dispatch(getNotifications())
     }, [])
 
+    console.log(notifications)
+
     const hanndleClickNotification = (id,action,parent)=>{
         dispatch(readNotification(id,action))
         if(action == "single"){

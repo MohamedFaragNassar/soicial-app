@@ -48,7 +48,7 @@ const AddReply = ({post,isOpen,close,node}) => {
             formData.append("image",image)
         }
         if(content){
-            dispatch(addPost(formData))
+            dispatch(addPost(formData,"reply"))
         }
         close()
     }
@@ -64,7 +64,7 @@ const AddReply = ({post,isOpen,close,node}) => {
         <div ref={node} id="addReply" className="lg:w-2/5 md:w-5/6 w-11/12 fixed top-6  md:top-10 rounded-2xl
           bg-white flex flex-col items-center justify-between py-2 z-20" >
               <div className="w-full p-1 border-b flex items-start" >
-                  <button onClick={close}><i class="fal fa-times-circle text-xl ml-2"></i></button>
+                  <button onClick={close}><i className="fal fa-times-circle text-xl ml-2"></i></button>
               </div>
               <div  className="p-2  flex flex-col items-center justify-between mx-auto  relative\
                              rounded-sm bg-white h-auto   w-full" >
@@ -86,7 +86,8 @@ const AddReply = ({post,isOpen,close,node}) => {
                     <img className=" w-8 h-8 md:w-12 md:h-12 rounded-full" src={`/media/${profile.personal_image}`} />
                 </div>}
                 <div className="w-11/12 flex flex-col justify-center items-start" >
-                    <textarea id="replyContent" className="h-max w-11/12  ml-4 " onChange={(e)=>setContent(e.target.value)}
+                    <textarea id="replyContent" className="h-max w-11/12  ml-4 focus:outline-none " 
+                    onChange={(e)=>setContent(e.target.value)}
                      placeholder="Add your reply" style={{resize:"none"}} ></textarea>
                     <div className="w-8/12 flex items center justify-start flex-wrap">
                         {tags.map(tag => 
@@ -96,13 +97,15 @@ const AddReply = ({post,isOpen,close,node}) => {
                     <div className="w-full flex items-center justify-between p-2" >
                         <div className="ml-5 flex items-center justify-between ">
                             <div>
-                                <input type="file" id="image" className="hidden" onChange={(e)=>setImage(e.target.files[0])} />
-                                <label className="mr-3 text-lg md:text-xl text-blue-400 cursor-pointer" for="image" >
-                                    <i class="fal fa-file-image"></i>
+                                <input type="file" id="image" className="hidden focus:outline-none" 
+                                onChange={(e)=>setImage(e.target.files[0])} />
+                                <label className="mr-3 text-lg md:text-xl focus:outline-none text-blue-400 cursor-pointer" 
+                                htmlFor="image" >
+                                    <i className="fal fa-file-image"></i>
                                 </label>
                             </div>
                             <button  className="mr-3 text-lg md:text-xl text-blue-400 relative " onClick={()=>setIsPickerOpen(true)}>
-                                <i class="fal fa-smile-beam"></i>
+                                <i className="fal fa-smile-beam"></i>
                                 {isPickerOpen&&<span ref={pickerNode} id="picker" className="absolute z-10 bottom-0 -left-1">
                                     <Picker onEmojiClick={handleAddEmoji} />
                                 </span>}

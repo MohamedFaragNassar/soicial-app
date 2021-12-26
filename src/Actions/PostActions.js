@@ -9,14 +9,15 @@ import {ADD_POST_FAIL,ADD_POST_REQUEST,ADD_POST_SUCCESS
         GET_BOOKMARKS_FAIL,GET_BOOKMARKS_REQUEST,GET_BOOKMARKS_SUCCESS,
         GET_LIKED_POSTS_FAIL,GET_LIKED_POSTS_REQUEST,GET_LIKED_POSTS_SUCCESS,
         GET_USER_LIKED_POSTS_FAIL,GET_USER_LIKED_POSTS_REQUEST,GET_USER_LIKED_POSTS_SUCCESS,
-        GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS} from '../Constants/PostConstants'
+        GET_USER_POSTS_FAIL,GET_USER_POSTS_REQUEST,GET_USER_POSTS_SUCCESS, ADD_REPLY, DELETE_REPLY} from '../Constants/PostConstants'
 
     
 import Axios from 'axios'
 
-const addPost = (post)=>async(dispatch,getState) =>{
+const addPost = (post,type)=>async(dispatch,getState) =>{
     dispatch({type:ADD_POST_REQUEST})
     try{
+        
         const {userSignIn:{userData}} = getState()
         const {data} = await Axios.post("/api/post",post,{
             headers:{
@@ -27,14 +28,18 @@ const addPost = (post)=>async(dispatch,getState) =>{
         })
         dispatch({type:ADD_POST_SUCCESS,payload:data})
         dispatch({type:ADD_POST,payload:data})
+        if(type == "reply"){
+            dispatch({type:ADD_REPLY,payload:data})
+        }
         
     }catch(err){
         dispatch({type:ADD_POST_FAIL,payload:err})
     }
 }
 
-const deletePost = (id)=>async(dispatch,getState) =>{
+const deletePost = (id,type)=>async(dispatch,getState) =>{
     dispatch({type:DELETE_POST_REQUEST})
+    console.log(type)
     try{
         const {userSignIn:{userData}} = getState()
         const {data} = await Axios.post("/api/deletepost",{id},{
@@ -42,6 +47,9 @@ const deletePost = (id)=>async(dispatch,getState) =>{
                 "Authorization":`Token ${userData.token}`
             }
         })
+        if(type=="reply"){
+            dispatch({type:DELETE_REPLY,payload:id})
+        }
         dispatch({type:DELETE_POST_SUCCESS,payload:data})
         dispatch({type:DELETE_POST,payload: id})
     }catch(err){
@@ -126,7 +134,6 @@ const getTagPosts = (tag)=>async(dispatch,getState) =>{
 
 const getPostDetails = (id) => async (dispatch,getState) => {
     dispatch({type:GET_POST_DETAILS_REQUEST})
-    console.log(id)
     try{
         const {userSignIn:{userData}} = getState()
         const {data} = await Axios.get(`/api/post/${id}`,{

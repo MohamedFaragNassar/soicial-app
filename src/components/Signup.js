@@ -50,38 +50,45 @@ const Signup = () => {
                <div className=" relative"  style={{width:48+"%"}} >
                     <span  className="absolute top-2 left-4">First Name</span>
                     <input required={true} onChange={(e)=>setFirstname(e.target.value)}
-                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 
+                     focus:outline-none" type="text"/>
                </div>
                <div className=" relative " style={{width:48+"%"}} >
                     <span  className="absolute top-2 left-4">Last Name</span>
                     <input required={true} onChange={(e)=>setLasttname(e.target.value)}
-                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                    className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 
+                     focus:outline-none" type="text"/>
                </div>
             </div>
             <div className="w-11/12 relative  mb-4 mx-auto" >
                 <span className="absolute top-2 left-4">Email</span>
                 <input required={true} onChange={(e)=>setEmail(e.target.value)}
-                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 
+                 focus:outline-none" type="text"/>
             </div>
             <div className="w-11/12 relative  mb-4 mx-auto" >
                 <span className="absolute top-2 left-4">username</span>
                 <input required={true} onChange={(e)=>setUsername(e.target.value)}
-                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="text"/>
+                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 
+                 focus:outline-none" type="text"/>
             </div>
             <div className="w-11/12 relative  mb-4 mx-auto" >
                 <span className="absolute top-2 left-4">Birthday</span>
                 <input required={true} onChange={(e)=>setBirthday(e.target.value)}
-                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="date"/>
+                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 focus:outline-none
+                " type="date"/>
             </div>
             <div className="w-11/12 relative  mb-4 mx-auto" >
                 <span className="absolute top-2 left-4">Password</span>
                 <input required={true} onChange={(e)=>setPassword(e.target.value)}
-                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="password"/>
+                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 focus:outline-none
+                " type="password"/>
             </div>
             <div className="w-11/12 relative  mb-4 mx-auto" >
                 <span className="absolute top-2 left-4">Confirm Password</span>
                 <input required={true} onChange={(e)=>setConfirm(e.target.value)}
-                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400" type="password"/>
+                className="w-full pb-4 pt-8 px-4 border-2 rounded-lg focus:border-blue-400 focus:outline-none
+                " type="password"/>
             </div>
             <button className="px-20 py-2 bg-blue-400 rounded-full
              font-semibold text-xl text-white hover:bg-blue-500" >

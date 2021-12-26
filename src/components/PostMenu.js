@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {deletePost,postAction} from '../Actions/PostActions'
 import {relation} from '../Actions/userActions'
 
-const PostMenu = ({node,post,close}) => {
+const PostMenu = ({node,post,close,type}) => {
 
     const {userData} = useSelector(state => state.userSignIn)
     const dispatch = useDispatch()
@@ -13,7 +13,7 @@ const PostMenu = ({node,post,close}) => {
     const checkBookmark = profile&&profile.bookmarks.includes(post.id)
     
     const handleDeletePost =(id) => {
-        dispatch(deletePost(id))
+        dispatch(deletePost(id,type))
         close()
     }
 
